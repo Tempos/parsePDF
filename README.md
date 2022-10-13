@@ -1,0 +1,101 @@
+# Parse PDF
+
+Parse AWS pdf file for endpoints, using tabula library.
+
+### Instalation:
+```pip install -r requirements.txt```
+
+
+Example JSON input:
+
+```json
+[{
+    "extraction_method": "lattice", "top": 79.27209, "left": 120.00431, "width": 437.9960632324219,
+    "height": 50.08702850341797, "right": 558.00037, "bottom": 129.35912,
+    "data": [
+        [{"top": 288.1747, "left": 120.00431, "width": 54.748374938964844, "height": 30.44317626953125,
+          "text": "Region\rName"},
+         {"top": 288.1747, "left": 174.75269, "width": 54.75, "height": 30.44317626953125, "text": "Region"},
+         {"top": 288.1747, "left": 229.50269, "width": 219.0, "height": 30.44317626953125, "text": "Endpoint"},
+         {"top": 288.1747, "left": 448.5027, "width": 54.75, "height": 30.44317626953125, "text": "Protocol"},
+         {"top": 288.1747, "left": 503.2527, "width": 54.7476806640625, "height": 30.44317626953125, "text": ""}],
+        [{"top": 318.6179, "left": 120.00431, "width": 54.748374938964844, "height": 30.639617919921875,
+          "text": "US East\r(Ohio)"},
+         {"top": 318.6179, "left": 174.75269, "width": 54.75, "height": 30.639617919921875, "text": "us-east-2"},
+         {"top": 318.6179, "left": 229.50269, "width": 219.0, "height": 30.639617919921875,
+          "text": "amplify.us-east-2.amazonaws.com"},
+         {"top": 318.6179, "left": 448.5027, "width": 54.75, "height": 30.639617919921875, "text": "HTTPS"},
+         {"top": 318.6179, "left": 503.2527, "width": 54.7476806640625, "height": 30.639617919921875, "text": ""}],
+        [{"top": 349.2575, "left": 120.00431, "width": 54.748374938964844, "height": 30.580108642578125,
+          "text": "US East (N.\rVirginia)"},
+         {"top": 349.2575, "left": 174.75269, "width": 54.75, "height": 30.580108642578125, "text": "us-east-1"},
+         {"top": 349.2575, "left": 229.50269, "width": 219.0, "height": 30.580108642578125,
+          "text": "amplify.us-east-1.amazonaws.com"},
+         {"top": 349.2575, "left": 448.5027, "width": 54.75, "height": 30.580108642578125, "text": "HTTPS"},
+         {"top": 349.2575, "left": 503.2527, "width": 54.7476806640625, "height": 30.580108642578125, "text": ""}],
+        [{"top": 379.83762, "left": 120.00431, "width": 54.748374938964844, "height": 41.619842529296875,
+          "text": "US\rWest (N.\rCalifornia)"},
+         {"top": 379.83762, "left": 174.75269, "width": 54.75, "height": 41.619842529296875, "text": "us-west-1"},
+         {"top": 379.83762, "left": 229.50269, "width": 219.0, "height": 41.619842529296875,
+          "text": "amplify.us-west-1.amazonaws.com"},
+         {"top": 379.83762, "left": 448.5027, "width": 54.75, "height": 41.619842529296875, "text": "HTTPS"},
+         {"top": 379.83762, "left": 503.2527, "width": 54.7476806640625, "height": 41.619842529296875, "text": ""}],
+        [{"top": 421.45746, "left": 120.00431, "width": 54.748374938964844, "height": 30.5797119140625,
+          "text": "US West\r(Oregon)"},
+         {"top": 421.45746, "left": 174.75269, "width": 54.75, "height": 30.5797119140625, "text": "us-west-2"},
+         {"top": 421.45746, "left": 229.50269, "width": 219.0, "height": 30.5797119140625,
+          "text": "amplify.us-west-2.amazonaws.com"},
+         {"top": 421.45746, "left": 448.5027, "width": 54.75, "height": 30.5797119140625, "text": "HTTPS"},
+         {"top": 421.45746, "left": 503.2527, "width": 54.7476806640625, "height": 30.5797119140625, "text": ""}
+         ],
+        [{"top": 452.03717, "left": 120.00431, "width": 54.748374938964844, "height": 52.66009521484375,
+          "text": "Asia\rPacific\r(Hong\rKong)"},
+         {"top": 452.03717, "left": 174.75269, "width": 54.75, "height": 52.66009521484375, "text": "ap-east-1"},
+         {"top": 452.03717, "left": 229.50269, "width": 219.0, "height": 52.66009521484375,
+          "text": "amplify.ap-east-1.amazonaws.com"},
+         {"top": 452.03717, "left": 448.5027, "width": 54.75, "height": 52.66009521484375, "text": "HTTPS"},
+         {"top": 452.03717, "left": 503.2527, "width": 54.7476806640625, "height": 52.66009521484375, "text": ""}],
+        [{"top": 504.69727, "left": 120.00431, "width": 54.748374938964844, "height": 41.61993408203125,
+          "text": "Asia\rPacific\r(Mumbai)"},
+         {"top": 504.69727, "left": 174.75269, "width": 54.75, "height": 41.61993408203125, "text": "ap-\rsouth-1"},
+         {"top": 504.69727, "left": 229.50269, "width": 219.0, "height": 41.61993408203125,
+          "text": "amplify.ap-south-1.amazonaws.com"},
+         {"top": 504.69727, "left": 448.5027, "width": 54.75, "height": 41.61993408203125, "text": "HTTPS"},
+         {"top": 504.69727, "left": 503.2527, "width": 54.7476806640625, "height": 41.61993408203125, "text": ""}],
+        [{"top": 546.3172, "left": 120.00431, "width": 54.748374938964844, "height": 41.62066650390625,
+          "text": "Asia\rPacific\r(Seoul)"},
+         {"top": 546.3172, "left": 174.75269, "width": 54.75, "height": 41.62066650390625,
+          "text": "ap-\rnortheast-2"},
+         {"top": 546.3172, "left": 229.50269, "width": 219.0, "height": 41.62066650390625,
+          "text": "amplify.ap-northeast-2.amazonaws.com"},
+         {"top": 546.3172, "left": 448.5027, "width": 54.75, "height": 41.62066650390625, "text": "HTTPS"},
+         {"top": 546.3172, "left": 503.2527, "width": 54.7476806640625, "height": 41.62066650390625,
+          "text": ""}],
+        [{"top": 587.93787, "left": 120.00431, "width": 54.748374938964844, "height": 41.6195068359375,
+          "text": "Asia\rPacific\r(Singapore)"},
+         {"top": 587.93787, "left": 174.75269, "width": 54.75, "height": 41.6195068359375,
+          "text": "ap-\rsoutheast-1"},
+         {"top": 587.93787, "left": 229.50269, "width": 219.0, "height": 41.6195068359375,
+          "text": "amplify.ap-southeast-1.amazonaws.com"},
+         {"top": 587.93787, "left": 448.5027, "width": 54.75, "height": 41.6195068359375, "text": "HTTPS"},
+         {"top": 587.93787, "left": 503.2527, "width": 54.7476806640625, "height": 41.6195068359375, "text": ""}],
+        [{"top": 629.5574, "left": 120.00431, "width": 54.748374938964844, "height": 41.61981201171875,
+          "text": "Asia\rPacific\r(Sydney)"},
+         {"top": 629.5574, "left": 174.75269, "width": 54.75, "height": 41.61981201171875,
+          "text": "ap-\rsoutheast-2"},
+         {"top": 629.5574, "left": 229.50269, "width": 219.0, "height": 41.61981201171875,
+          "text": "amplify.ap-southeast-2.amazonaws.com"},
+         {"top": 629.5574, "left": 448.5027, "width": 54.75, "height": 41.61981201171875, "text": "HTTPS"},
+         {"top": 629.5574, "left": 503.2527, "width": 54.7476806640625, "height": 41.61981201171875, "text": ""}],
+        [{"top": 671.1772, "left": 120.00431, "width": 54.748374938964844, "height": 41.6510009765625,
+          "text": "Asia\rPacific\r(Tokyo)"},
+         {"top": 671.1772, "left": 174.75269, "width": 54.75, "height": 41.6510009765625,
+          "text": "ap-\rnortheast-1"},
+         {"top": 671.1772, "left": 229.50269, "width": 219.0, "height": 41.6510009765625,
+          "text": "amplify.ap-northeast-1.amazonaws.com"},
+         {"top": 671.1772, "left": 448.5027, "width": 54.75, "height": 41.6510009765625, "text": "HTTPS"},
+         {"top": 671.1772, "left": 503.2527, "width": 54.7476806640625, "height": 41.6510009765625, "text": ""}]
+    ]
+}]
+
+```
