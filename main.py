@@ -9,7 +9,7 @@ SPLITS = ['aws', 'com', 'com.cn', 'cn']
 
 
 def process_pdf(pdf_file_path: str, out_file_path: str, col: int = 1, split_by: list = None) -> None:
-    converted_file = f"data/{Path(pdf_file_path).stem}.json"
+    converted_file = f"/tmp/{Path(pdf_file_path).stem}.json"
     split = sorted(split_by or SPLITS, reverse=True)
 
     domains = '|'.join(split).replace('.', r'\.')
@@ -49,7 +49,7 @@ def split_url(line: str, splits: list = None) -> str:
 
 if __name__ == '__main__':
     process_pdf(
-        pdf_file_path='data/aws-ug.pdf',
-        # pdf_file_path='data/aws-general.pdf', col=2,
-        out_file_path='result'
+        # pdf_file_path='https://docs.amazonaws.cn/en_us/aws/latest/userguide/aws-ug.pdf',
+        pdf_file_path='https://docs.aws.amazon.com/pdfs/general/latest/gr/aws-general.pdf', col=2,
+        out_file_path='result.csv'
     )
